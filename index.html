@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DIAN — Cinematic AI Ads Director</title>
+  <meta name="description" content="Cinematic AI Ads Director. Directing AI-generated commercials, brand films and product cinematics that feel like the big screen." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='13' fill='none' stroke='%23ff5c1a' stroke-width='2.5'/%3E%3Ccircle cx='16' cy='16' r='5' fill='%23ff5c1a'/%3E%3C/svg%3E" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/style.css" />
+
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "./js/vendor/three.module.js"
+      }
+    }
+  </script>
+</head>
+<body>
+
+  <!-- Preloader -->
+  <div class="preloader" id="preloader">
+    <div class="preloader__inner">
+      <span class="preloader__label">A FILM BY AI &times; HUMAN</span>
+      <span class="preloader__count" id="preloaderCount">00</span>
+      <div class="preloader__bar"><span id="preloaderBar"></span></div>
+    </div>
+  </div>
+
+  <!-- Custom cursor -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-follower" id="cursorFollower"><span>PLAY</span></div>
+
+  <!-- Fixed 3D canvas -->
+  <canvas id="webgl"></canvas>
+
+  <!-- Film grain overlay -->
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- Letterbox bars (cinematic) -->
+  <div class="letterbox letterbox--top" aria-hidden="true"></div>
+  <div class="letterbox letterbox--bottom" aria-hidden="true"></div>
+
+  <!-- Header -->
+  <header class="header">
+    <a href="#top" class="header__logo" data-cursor="hover">DIAN<span class="blink">_</span></a>
+    <div class="header__status">
+      <span class="rec-dot"></span> REC &mdash; <span id="clock">00:00:00</span>
+    </div>
+    <nav class="header__nav">
+      <a href="#work" data-cursor="hover">Work</a>
+      <a href="#services" data-cursor="hover">Services</a>
+      <a href="#process" data-cursor="hover">Process</a>
+      <a href="#contact" data-cursor="hover">Contact</a>
+    </nav>
+    <a href="#contact" class="header__cta" data-cursor="hover">Start a project</a>
+  </header>
+
+  <main id="top">
+
+    <!-- ============ HERO ============ -->
+    <section class="hero section" data-scene="0">
+      <div class="hero__meta">
+        <span>SCENE 01 &mdash; TAKE 01</span>
+        <span>EST. 2024 &mdash; JAKARTA / WORLDWIDE</span>
+      </div>
+
+      <h1 class="hero__title">
+        <span class="hero__line"><span class="hero__word">CINEMATIC</span></span>
+        <span class="hero__line hero__line--serif"><span class="hero__word"><em>AI ads</em></span></span>
+        <span class="hero__line"><span class="hero__word">DIRECTOR</span></span>
+      </h1>
+
+      <p class="hero__sub">
+        I direct AI-generated commercials that don't look AI-generated.<br />
+        Big-screen emotion. Startup-speed production.
+      </p>
+
+      <div class="hero__scroll">
+        <span>SCROLL TO ROLL</span>
+        <div class="hero__scroll-line"></div>
+      </div>
+
+      <div class="hero__frame-info">
+        <span>24 FPS</span><span>2.39:1</span><span>ISO 800</span><span>T1.8</span>
+      </div>
+    </section>
+
+    <!-- ============ MARQUEE ============ -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__track">
+        <span>AI COMMERCIALS &mdash; BRAND FILMS &mdash; PRODUCT CINEMATICS &mdash; SPEC ADS &mdash; DIRECTING &mdash; </span>
+        <span>AI COMMERCIALS &mdash; BRAND FILMS &mdash; PRODUCT CINEMATICS &mdash; SPEC ADS &mdash; DIRECTING &mdash; </span>
+      </div>
+    </div>
+
+    <!-- ============ MANIFESTO ============ -->
+    <section class="manifesto section" data-scene="1">
+      <span class="section__tag">SCENE 02 &mdash; THE MANIFESTO</span>
+      <h2 class="manifesto__text split-reveal">
+        Anyone can prompt. <em>Few can direct.</em> I bring 100 years of film language &mdash; blocking, lensing, light, rhythm &mdash; into the AI pipeline, so your brand gets a <em>film</em>, not a demo.
+      </h2>
+      <div class="manifesto__stats">
+        <div class="stat" data-cursor="hover">
+          <span class="stat__num" data-count="48">0</span><span class="stat__plus">+</span>
+          <span class="stat__label">AI spots directed</span>
+        </div>
+        <div class="stat" data-cursor="hover">
+          <span class="stat__num" data-count="12">0</span><span class="stat__plus">M+</span>
+          <span class="stat__label">Organic views</span>
+        </div>
+        <div class="stat" data-cursor="hover">
+          <span class="stat__num" data-count="90">0</span><span class="stat__plus">%</span>
+          <span class="stat__label">Cheaper than a film set</span>
+        </div>
+        <div class="stat" data-cursor="hover">
+          <span class="stat__num" data-count="7">0</span><span class="stat__plus">d</span>
+          <span class="stat__label">Avg. delivery time</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SERVICES ============ -->
+    <section class="services section" id="services" data-scene="2">
+      <span class="section__tag">SCENE 03 &mdash; WHAT I DIRECT</span>
+      <div class="services__list">
+        <article class="service" data-cursor="hover">
+          <span class="service__num">01</span>
+          <h3 class="service__title">AI Commercials</h3>
+          <p class="service__desc">Full 15&ndash;60s spots, directed shot-by-shot. Storyboard, prompt cinematography, edit, sound design, grade. Broadcast-ready.</p>
+          <span class="service__arrow">&rarr;</span>
+        </article>
+        <article class="service" data-cursor="hover">
+          <span class="service__num">02</span>
+          <h3 class="service__title">Brand Films</h3>
+          <p class="service__desc">Emotional long-form narratives. The kind of film that makes people feel something about a brand &mdash; without a single day on set.</p>
+          <span class="service__arrow">&rarr;</span>
+        </article>
+        <article class="service" data-cursor="hover">
+          <span class="service__num">03</span>
+          <h3 class="service__title">Product Cinematics</h3>
+          <p class="service__desc">Hero-shot sequences for launches. Macro textures, impossible camera moves, physics that obey the story, not reality.</p>
+          <span class="service__arrow">&rarr;</span>
+        </article>
+        <article class="service" data-cursor="hover">
+          <span class="service__num">04</span>
+          <h3 class="service__title">Creative Direction</h3>
+          <p class="service__desc">For agencies &amp; in-house teams adopting AI video. I set the visual grammar, pipelines and taste level &mdash; you keep the credit.</p>
+          <span class="service__arrow">&rarr;</span>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============ WORK ============ -->
+    <section class="work section" id="work" data-scene="3">
+      <span class="section__tag">SCENE 04 &mdash; SELECTED TAKES</span>
+      <div class="work__list">
+        <a class="work__item" href="#contact" data-cursor="view">
+          <span class="work__index">TAKE 01</span>
+          <h3 class="work__title">Neon District</h3>
+          <span class="work__cat">Automotive &mdash; 30s spot</span>
+        </a>
+        <a class="work__item" href="#contact" data-cursor="view">
+          <span class="work__index">TAKE 02</span>
+          <h3 class="work__title">Slow Bloom</h3>
+          <span class="work__cat">Fragrance &mdash; brand film</span>
+        </a>
+        <a class="work__item" href="#contact" data-cursor="view">
+          <span class="work__index">TAKE 03</span>
+          <h3 class="work__title">Zero Gravity Coffee</h3>
+          <span class="work__cat">F&amp;B &mdash; product cinematic</span>
+        </a>
+        <a class="work__item" href="#contact" data-cursor="view">
+          <span class="work__index">TAKE 04</span>
+          <h3 class="work__title">Chrome Hearts of Tokyo</h3>
+          <span class="work__cat">Fashion &mdash; spec ad</span>
+        </a>
+        <a class="work__item" href="#contact" data-cursor="view">
+          <span class="work__index">TAKE 05</span>
+          <h3 class="work__title">The Last Billboard</h3>
+          <span class="work__cat">Tech &mdash; launch film</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- ============ PROCESS ============ -->
+    <section class="process section" id="process" data-scene="4">
+      <span class="section__tag">SCENE 05 &mdash; HOW A FILM HAPPENS</span>
+      <div class="process__steps">
+        <div class="process__step">
+          <span class="process__num">A</span>
+          <h3>Script &amp; Boards</h3>
+          <p>We lock the idea. I write the treatment and storyboard every frame like a real shoot &mdash; because it is one.</p>
+        </div>
+        <div class="process__step">
+          <span class="process__num">B</span>
+          <h3>Prompt Cinematography</h3>
+          <p>Each shot gets directed: lens, movement, light, blocking. Generated, curated, re-directed until it holds up on a big screen.</p>
+        </div>
+        <div class="process__step">
+          <span class="process__num">C</span>
+          <h3>Edit &amp; Sound</h3>
+          <p>Rhythm is where ads live or die. Cut, sound design and music are built together, not bolted on.</p>
+        </div>
+        <div class="process__step">
+          <span class="process__num">D</span>
+          <h3>Grade &amp; Delivery</h3>
+          <p>Cinematic color pass, masters in every ratio &mdash; 2.39:1 for the film, 9:16 for the feed. Delivered in days.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CONTACT ============ -->
+    <section class="contact section" id="contact" data-scene="5">
+      <span class="section__tag">FINAL SCENE &mdash; ROLL CREDITS</span>
+      <h2 class="contact__title">
+        <span class="contact__line">Your brand&rsquo;s</span>
+        <span class="contact__line"><em>first film</em></span>
+        <span class="contact__line">starts here.</span>
+      </h2>
+      <a href="mailto:agustina.dian354@gmail.com" class="contact__email" data-cursor="hover">agustina.dian354@gmail.com</a>
+      <div class="contact__links">
+        <a href="#" data-cursor="hover">Instagram</a>
+        <a href="#" data-cursor="hover">X / Twitter</a>
+        <a href="#" data-cursor="hover">YouTube</a>
+        <a href="#" data-cursor="hover">LinkedIn</a>
+      </div>
+      <footer class="footer">
+        <span>&copy; 2026 DIAN &mdash; Cinematic AI Ads Director</span>
+        <span>Directed by human. Rendered by AI.</span>
+      </footer>
+    </section>
+
+  </main>
+
+  <script src="js/vendor/gsap.min.js"></script>
+  <script src="js/vendor/ScrollTrigger.min.js"></script>
+  <script src="js/vendor/lenis.min.js"></script>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
