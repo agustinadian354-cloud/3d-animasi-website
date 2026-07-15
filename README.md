@@ -1,4 +1,4 @@
-# DIAN — Cinematic AI Ads Director
+# Ads by Dian — Cinematic AI Ads Director
 
 Website portfolio animasi 3D dengan gaya sinematik, terinspirasi dari noth.in namun dengan angle *cinematic AI ads director*.
 
@@ -35,6 +35,7 @@ js/main.js      — 3D scene, animasi scroll, cursor, preloader
 
 ## Kustomisasi
 
-- Ganti email/sosial media di section `#contact` pada `index.html`
+- Email/sosial media (Instagram, TikTok, LinkedIn) ada di section `#contact` pada `index.html`
 - Ganti judul karya di section `#work`
+- Skillset ada di section manifesto (`.skills__list`)
 - Warna aksen di `:root` pada `css/style.css` (`--accent`, `--accent-2`)

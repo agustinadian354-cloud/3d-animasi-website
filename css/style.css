@@ -307,6 +307,12 @@ main { position: relative; z-index: 10; }
   color: var(--muted);
   max-width: 34rem;
 }
+.hero__tagline {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.35em;
+  color: var(--ink);
+}
 
 .hero__scroll {
   position: absolute;
@@ -413,6 +419,43 @@ main { position: relative; z-index: 10; }
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--muted);
+}
+
+/* ---------- Skills ---------- */
+.skills {
+  margin-top: 3.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 1.5rem;
+}
+.skills__label {
+  font-family: var(--font-display);
+  font-size: 0.65rem;
+  letter-spacing: 0.35em;
+  color: var(--accent);
+}
+.skills__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  list-style: none;
+}
+.skills__list li {
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border: 1px solid var(--line);
+  border-radius: 99px;
+  padding: 0.55rem 1.1rem;
+  transition: color 0.3s ease, border-color 0.3s ease, transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.skills__list li:hover {
+  color: var(--ink);
+  border-color: var(--accent);
+  transform: scale(1.08);
 }
 
 /* ---------- Services ---------- */
