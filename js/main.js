@@ -1,7 +1,8 @@
 /* ============================================================
    DIAN — Cinematic AI Ads Director
-   3D scene: an abstract camera lens — nested rings, a glowing
-   core and projector dust — that re-frames itself per scene.
+   3D scene: a spiral star galaxy — thousands of glowing
+   particles, warm orange core fading to teal arms — that
+   re-frames itself per scene like a camera changing shots.
    ============================================================ */
 
 import * as THREE from "three";
@@ -25,7 +26,7 @@ gsap.registerPlugin(ScrollTrigger);
    Three.js scene
 ------------------------------------------------------------ */
 const canvas = document.getElementById("webgl");
-let scene, camera, renderer, lensGroup, dust, core;
+let scene, camera, renderer, galaxyGroup, dust;
 let webglOK = true;
 
 const mouse = { x: 0, y: 0 };
@@ -47,68 +48,128 @@ if (webglOK) {
   camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 100);
   camera.position.set(0, 0, 7);
 
-  /* --- The lens: nested wireframe rings like optic elements --- */
-  lensGroup = new THREE.Group();
-
-  const ringSpecs = [
-    { r: 2.6, tube: 0.012, color: 0xff5c1a, opacity: 0.9 },
-    { r: 2.1, tube: 0.01, color: 0xf2efe9, opacity: 0.28 },
-    { r: 1.65, tube: 0.012, color: 0x2ec9c1, opacity: 0.55 },
-    { r: 1.2, tube: 0.01, color: 0xf2efe9, opacity: 0.22 },
-    { r: 0.8, tube: 0.012, color: 0xff5c1a, opacity: 0.75 },
-  ];
-  const rings = [];
-  ringSpecs.forEach((s, i) => {
-    const geo = new THREE.TorusGeometry(s.r, s.tube, 8, 128);
-    const mat = new THREE.MeshBasicMaterial({ color: s.color, transparent: true, opacity: s.opacity });
-    const ring = new THREE.Mesh(geo, mat);
-    ring.userData.speed = (i % 2 === 0 ? 1 : -1) * (0.15 + i * 0.06);
-    ring.userData.tiltPhase = i * 0.7;
-    rings.push(ring);
-    lensGroup.add(ring);
-  });
-
-  /* --- Aperture blades: thin boxes arranged radially --- */
-  const blades = new THREE.Group();
-  const bladeMat = new THREE.MeshBasicMaterial({ color: 0xf2efe9, transparent: true, opacity: 0.14 });
-  for (let i = 0; i < 9; i++) {
-    const blade = new THREE.Mesh(new THREE.BoxGeometry(1.1, 0.02, 0.02), bladeMat);
-    const a = (i / 9) * Math.PI * 2;
-    blade.position.set(Math.cos(a) * 0.85, Math.sin(a) * 0.85, 0.05);
-    blade.rotation.z = a + Math.PI / 3;
-    blades.add(blade);
+  /* --- Soft round sprite so particles glow like stars --- */
+  function makeStarTexture() {
+    const size = 64;
+    const c = document.createElement("canvas");
+    c.width = c.height = size;
+    const ctx = c.getContext("2d");
+    const g = ctx.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2);
+    g.addColorStop(0, "rgba(255,255,255,1)");
+    g.addColorStop(0.25, "rgba(255,255,255,0.8)");
+    g.addColorStop(0.6, "rgba(255,255,255,0.15)");
+    g.addColorStop(1, "rgba(255,255,255,0)");
+    ctx.fillStyle = g;
+    ctx.fillRect(0, 0, size, size);
+    const tex = new THREE.CanvasTexture(c);
+    tex.colorSpace = THREE.SRGBColorSpace;
+    return tex;
   }
-  lensGroup.add(blades);
-  lensGroup.userData.blades = blades;
+  const starTexture = makeStarTexture();
 
-  /* --- Glowing core: the "sensor" --- */
-  core = new THREE.Mesh(
-    new THREE.IcosahedronGeometry(0.42, 1),
-    new THREE.MeshBasicMaterial({ color: 0xff5c1a, wireframe: true, transparent: true, opacity: 0.85 })
+  /* --- The galaxy: a procedural spiral of glowing stars --- */
+  galaxyGroup = new THREE.Group();
+
+  const GALAXY = {
+    count: 24000,
+    radius: 4.2,
+    branches: 4,
+    spin: 1.35,
+    randomness: 0.27,
+    randomnessPower: 2.6,
+    thickness: 0.4,
+    insideColor: new THREE.Color(0xffb37a), // warm core
+    midColor: new THREE.Color(0xff5c1a),    // cinematic orange
+    outsideColor: new THREE.Color(0x3fe6da) // teal arms
+  };
+
+  {
+    const positions = new Float32Array(GALAXY.count * 3);
+    const colors = new Float32Array(GALAXY.count * 3);
+    const col = new THREE.Color();
+
+    for (let i = 0; i < GALAXY.count; i++) {
+      const i3 = i * 3;
+      const r = Math.pow(Math.random(), 1.6) * GALAXY.radius;
+      const branch = ((i % GALAXY.branches) / GALAXY.branches) * Math.PI * 2;
+      const spin = r * GALAXY.spin;
+
+      const rnd = () =>
+        Math.pow(Math.random(), GALAXY.randomnessPower) *
+        (Math.random() < 0.5 ? 1 : -1) *
+        GALAXY.randomness * r;
+
+      positions[i3 + 0] = Math.cos(branch + spin) * r + rnd();
+      positions[i3 + 1] = rnd() * GALAXY.thickness + (Math.random() - 0.5) * 0.08;
+      positions[i3 + 2] = Math.sin(branch + spin) * r + rnd();
+
+      const t = r / GALAXY.radius;
+      if (t < 0.28) col.copy(GALAXY.insideColor).lerp(GALAXY.midColor, t / 0.28);
+      else col.copy(GALAXY.midColor).lerp(GALAXY.outsideColor, (t - 0.28) / 0.72);
+      // sprinkle a few near-white stars for sparkle
+      if (Math.random() < 0.06) col.lerp(new THREE.Color(0xffffff), 0.7);
+
+      colors[i3 + 0] = col.r;
+      colors[i3 + 1] = col.g;
+      colors[i3 + 2] = col.b;
+    }
+
+    const geo = new THREE.BufferGeometry();
+    geo.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+    geo.setAttribute("color", new THREE.BufferAttribute(colors, 3));
+
+    const mat = new THREE.PointsMaterial({
+      size: 0.052,
+      map: starTexture,
+      sizeAttenuation: true,
+      depthWrite: false,
+      blending: THREE.AdditiveBlending,
+      vertexColors: true,
+      transparent: true,
+    });
+
+    galaxyGroup.add(new THREE.Points(geo, mat));
+  }
+
+  /* --- Bright galactic core glow --- */
+  const coreGlow = new THREE.Sprite(
+    new THREE.SpriteMaterial({
+      map: starTexture,
+      color: 0xffc9a0,
+      transparent: true,
+      opacity: 0.85,
+      depthWrite: false,
+      blending: THREE.AdditiveBlending,
+    })
   );
-  lensGroup.add(core);
+  coreGlow.scale.setScalar(2.4);
+  galaxyGroup.add(coreGlow);
 
-  const coreGlow = new THREE.Mesh(
-    new THREE.SphereGeometry(0.2, 16, 16),
-    new THREE.MeshBasicMaterial({ color: 0xffd9c2, transparent: true, opacity: 0.9 })
-  );
-  lensGroup.add(coreGlow);
+  // ease the galaxy into a cinematic tilt
+  galaxyGroup.rotation.x = 0.62;
+  scene.add(galaxyGroup);
 
-  scene.add(lensGroup);
-
-  /* --- Projector dust: particles drifting through the beam --- */
-  const dustCount = 900;
+  /* --- Distant starfield behind the galaxy --- */
+  const dustCount = 1400;
   const positions = new Float32Array(dustCount * 3);
   for (let i = 0; i < dustCount; i++) {
-    positions[i * 3 + 0] = (Math.random() - 0.5) * 26;
-    positions[i * 3 + 1] = (Math.random() - 0.5) * 16;
-    positions[i * 3 + 2] = (Math.random() - 0.5) * 20;
+    positions[i * 3 + 0] = (Math.random() - 0.5) * 30;
+    positions[i * 3 + 1] = (Math.random() - 0.5) * 18;
+    positions[i * 3 + 2] = (Math.random() - 0.5) * 24;
   }
   const dustGeo = new THREE.BufferGeometry();
   dustGeo.setAttribute("position", new THREE.BufferAttribute(positions, 3));
   dust = new THREE.Points(
     dustGeo,
-    new THREE.PointsMaterial({ color: 0xf2efe9, size: 0.02, transparent: true, opacity: 0.5, sizeAttenuation: true })
+    new THREE.PointsMaterial({
+      color: 0xf2efe9,
+      size: 0.02,
+      map: starTexture,
+      transparent: true,
+      opacity: 0.45,
+      sizeAttenuation: true,
+      depthWrite: false,
+    })
   );
   scene.add(dust);
 
@@ -129,25 +190,19 @@ if (webglOK) {
   (function tick() {
     const t = clock.getElapsedTime();
 
-    rings.forEach((ring) => {
-      ring.rotation.x = Math.sin(t * 0.3 + ring.userData.tiltPhase) * 0.45;
-      ring.rotation.y = t * ring.userData.speed;
-    });
-    blades.rotation.z = t * 0.12;
-    core.rotation.x = t * 0.4;
-    core.rotation.y = t * 0.55;
-
-    const s = 1 + Math.sin(t * 2.1) * 0.05;
+    // the galaxy slowly revolves; the core glow breathes
+    galaxyGroup.rotation.y = t * 0.055;
+    const s = 2.4 + Math.sin(t * 1.6) * 0.12;
     coreGlow.scale.setScalar(s);
 
-    dust.rotation.y = t * 0.012;
+    dust.rotation.y = t * 0.008;
 
     if (!prefersReducedMotion) {
       camera.position.x += (cameraTarget.x + mouse.x * 0.45 - camera.position.x) * 0.05;
       camera.position.y += (cameraTarget.y - mouse.y * 0.35 - camera.position.y) * 0.05;
       camera.position.z += (cameraTarget.z - camera.position.z) * 0.05;
-      lensGroup.rotation.y += (cameraTarget.ry - lensGroup.rotation.y) * 0.04;
-      lensGroup.rotation.x += (cameraTarget.rx - lensGroup.rotation.x) * 0.04;
+      galaxyGroup.rotation.x += (0.62 + cameraTarget.rx - galaxyGroup.rotation.x) * 0.04;
+      galaxyGroup.rotation.z += (cameraTarget.ry * 0.25 - galaxyGroup.rotation.z) * 0.04;
     }
     camera.lookAt(0, 0, 0);
 
