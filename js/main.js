@@ -78,9 +78,9 @@ if (webglOK) {
     randomness: 0.27,
     randomnessPower: 2.6,
     thickness: 0.4,
-    insideColor: new THREE.Color(0xffb37a), // warm core
-    midColor: new THREE.Color(0xff5c1a),    // cinematic orange
-    outsideColor: new THREE.Color(0x3fe6da) // teal arms
+    insideColor: new THREE.Color(0xffffff), // bright silver core
+    midColor: new THREE.Color(0xb9bac2),    // silver gray
+    outsideColor: new THREE.Color(0x5c5e68) // dark smoke gray
   };
 
   {
@@ -135,7 +135,7 @@ if (webglOK) {
   const coreGlow = new THREE.Sprite(
     new THREE.SpriteMaterial({
       map: starTexture,
-      color: 0xffc9a0,
+      color: 0xe9eaf0,
       transparent: true,
       opacity: 0.85,
       depthWrite: false,
