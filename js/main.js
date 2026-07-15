@@ -280,6 +280,10 @@ function introSequence() {
     duration: 1.1,
     stagger: 0.12,
     ease: "power4.out",
+    onComplete() {
+      // unclip so the hover-grow effect isn't cut off
+      document.querySelectorAll(".hero__line").forEach((l) => (l.style.overflow = "visible"));
+    },
   }, "-=0.7");
 
   tl.from(".hero__sub, .hero__meta, .hero__scroll, .hero__frame-info, .header", {
@@ -379,6 +383,10 @@ gsap.from(".contact__line", {
   stagger: 0.12,
   ease: "power4.out",
   scrollTrigger: { trigger: ".contact", start: "top 60%", once: true },
+  onComplete() {
+    // unclip so the hover-grow effect isn't cut off
+    document.querySelectorAll(".contact__line").forEach((l) => (l.style.overflow = "visible"));
+  },
 });
 
 /* Section tags */
