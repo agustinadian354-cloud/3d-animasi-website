@@ -281,8 +281,9 @@ function introSequence() {
     stagger: 0.12,
     ease: "power4.out",
     onComplete() {
-      // unclip so the hover-grow effect isn't cut off
+      // unclip and enable hover-grow only after GSAP is done with transforms
       document.querySelectorAll(".hero__line").forEach((l) => (l.style.overflow = "visible"));
+      document.body.classList.add("intro-done");
     },
   }, "-=0.7");
 
@@ -384,8 +385,9 @@ gsap.from(".contact__line", {
   ease: "power4.out",
   scrollTrigger: { trigger: ".contact", start: "top 60%", once: true },
   onComplete() {
-    // unclip so the hover-grow effect isn't cut off
+    // unclip and enable hover-grow only after GSAP is done with transforms
     document.querySelectorAll(".contact__line").forEach((l) => (l.style.overflow = "visible"));
+    document.body.classList.add("contact-revealed");
   },
 });
 

@@ -284,8 +284,8 @@ main { position: relative; z-index: 10; }
 .hero__title {
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: clamp(2.8rem, 11vw, 9.5rem);
-  line-height: 0.95;
+  font-size: clamp(2.6rem, 10vw, 8.6rem);
+  line-height: 1.04;
   letter-spacing: -0.02em;
   text-transform: uppercase;
 }
@@ -301,7 +301,7 @@ main { position: relative; z-index: 10; }
 .hero__line--serif em { font-style: italic; }
 
 .hero__sub {
-  margin-top: 2.4rem;
+  margin-top: 3rem;
   font-size: clamp(0.85rem, 1.4vw, 1.05rem);
   line-height: 1.7;
   color: var(--muted);
@@ -543,8 +543,8 @@ main { position: relative; z-index: 10; }
 .contact__title {
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: clamp(2.6rem, 9vw, 8rem);
-  line-height: 1;
+  font-size: clamp(2.4rem, 8.5vw, 7.4rem);
+  line-height: 1.06;
   text-transform: uppercase;
   letter-spacing: -0.02em;
 }
@@ -596,10 +596,12 @@ main { position: relative; z-index: 10; }
 }
 
 /* ---------- Hover grow: text pops toward the cursor ---------- */
-.hero__word {
+/* transition is gated behind .intro-done so it can't fight the
+   GSAP intro tween that animates the same transform property */
+body.intro-done .hero__word {
   transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
-.hero__word:hover { transform: scale(1.06); }
+body.intro-done .hero__word:hover { transform: scale(1.06); }
 
 .header__nav a {
   display: inline-block;
@@ -650,10 +652,10 @@ main { position: relative; z-index: 10; }
 }
 .contact__links a:hover { transform: scale(1.15); }
 
-.contact__line {
+body.contact-revealed .contact__line {
   transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
-.contact__line:hover { transform: scale(1.05); }
+body.contact-revealed .contact__line:hover { transform: scale(1.05); }
 
 @media (prefers-reduced-motion: reduce) {
   .hero__word, .header__nav a, .service__title, .work__title,
