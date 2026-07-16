@@ -217,6 +217,10 @@ if (webglOK) {
     { x: 2.6, y: -0.4, z: 5.8, rx: -0.2, ry: -1.1 }, // services: reverse angle
     { x: 0, y: 2.2, z: 4.6, rx: 1.0, ry: 0.2 },    // work: top-down crane
     { x: -1.2, y: -1.6, z: 5.4, rx: -0.6, ry: 0.5 }, // process: low angle
+    { x: 0, y: 0, z: 0, rx: 0, ry: 0 },            // (reserved)
+    { x: 2.2, y: 1.5, z: 6.2, rx: 0.7, ry: -0.7 }, // pricing: high wide
+    { x: -2.8, y: -0.6, z: 5, rx: -0.25, ry: 1.3 }, // about: intimate side angle
+    { x: 1.2, y: -2.1, z: 5.6, rx: -0.85, ry: -0.4 }, // faq: low dutch
     { x: 0, y: 0, z: 3.4, rx: 0, ry: Math.PI },    // contact: push-in, flipped
   ];
 
@@ -384,7 +388,7 @@ document.querySelectorAll(".stat__num").forEach((el) => {
 });
 
 /* Generic rise-in for list items and cards */
-gsap.utils.toArray(".service, .work__item, .process__step, .stat").forEach((el, i) => {
+gsap.utils.toArray(".service, .work__item, .process__step, .stat, .price-card, .faq__item, .about__photo, .about__body").forEach((el, i) => {
   gsap.from(el, {
     opacity: 0,
     y: 50,
@@ -446,6 +450,16 @@ if (reel) {
     soundBtn.setAttribute("aria-label", video.muted ? "Unmute showreel" : "Mute showreel");
   });
 }
+
+/* ------------------------------------------------------------
+   FAQ accordion: opening one closes the others
+------------------------------------------------------------ */
+const faqItems = document.querySelectorAll(".faq__item");
+faqItems.forEach((item) => {
+  item.addEventListener("toggle", () => {
+    if (item.open) faqItems.forEach((other) => other !== item && (other.open = false));
+  });
+});
 
 /* ------------------------------------------------------------
    Work lightbox: click a take to play its reel
