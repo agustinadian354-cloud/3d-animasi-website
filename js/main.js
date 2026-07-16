@@ -7,6 +7,24 @@
 
 import * as THREE from "three";
 
+/* ============================================================
+   VIDEO PATHS — edit everything in this one block.
+   - hero      : the autoplay showreel in the hero section
+   - takes[i]  : video for TAKE 0(i+1) in the Selected Takes grid
+                 (order matches the cards top-to-bottom in HTML).
+                 Leave "" for a COMING SOON placeholder card.
+   ============================================================ */
+const VIDEOS = {
+  hero: "assets/reel-01.mp4",
+  takes: [
+    "assets/reel-01.mp4", // TAKE 01 — The Scroll Stopper (placeholder: same as hero)
+    "assets/reel-02.mp4", // TAKE 02 — Ten Seconds of Want
+    "assets/reel-03.mp4", // TAKE 03 — Feed Cinema
+    "",                   // TAKE 04 — coming soon
+    "",                   // TAKE 05 — coming soon
+  ],
+};
+
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 /* ------------------------------------------------------------
@@ -388,7 +406,7 @@ document.querySelectorAll(".stat__num").forEach((el) => {
 });
 
 /* Generic rise-in for list items and cards */
-gsap.utils.toArray(".service, .work__item, .process__step, .stat, .price-card, .faq__item, .about__photo, .about__body").forEach((el, i) => {
+gsap.utils.toArray(".service, .work-card, .process__step, .stat, .price-card, .faq__item, .about__photo, .about__body").forEach((el, i) => {
   gsap.from(el, {
     opacity: 0,
     y: 50,
@@ -446,7 +464,7 @@ if (reel) {
   // lazy-load the reel after the page is done with critical work
   const loadReel = () => {
     if (source.src) return;
-    source.src = source.dataset.src;
+    source.src = VIDEOS.hero || source.dataset.src;
     video.load();
   };
   if (document.readyState === "complete") loadReel();
@@ -484,20 +502,74 @@ faqItems.forEach((item) => {
 });
 
 /* ------------------------------------------------------------
-   Work lightbox: click a take to play its reel
+   Selected Takes grid: lazy-load videos from the VIDEOS config,
+   hover to preview, click to open the lightbox
 ------------------------------------------------------------ */
 const lightbox = document.getElementById("lightbox");
+const workCards = document.querySelectorAll(".work-card");
+
+workCards.forEach((card) => {
+  const idx = parseInt(card.dataset.take, 10);
+  const src = VIDEOS.takes[idx] || "";
+  const video = card.querySelector("video");
+
+  if (!src) {
+    // empty slot: gray placeholder + COMING SOON label
+    card.classList.add("work-card--soon");
+    card.dataset.cursor = "hover";
+    card.removeAttribute("role");
+    card.removeAttribute("tabindex");
+    return;
+  }
+  card.classList.remove("work-card--soon");
+  card.dataset.video = src;
+
+  // lazy-load: attach src only when the card nears the viewport
+  const load = () => {
+    if (!video.src) video.src = src;
+  };
+  if ("IntersectionObserver" in window) {
+    const io = new IntersectionObserver(
+      (entries) =>
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            load();
+            io.disconnect();
+          }
+        }),
+      { rootMargin: "300px" }
+    );
+    io.observe(card);
+  } else {
+    load();
+  }
+
+  // muted preview on hover / focus
+  const preview = () => {
+    load();
+    video.play().catch(() => {});
+  };
+  const stopPreview = () => {
+    video.pause();
+    video.currentTime = 0;
+  };
+  card.addEventListener("mouseenter", preview);
+  card.addEventListener("mouseleave", stopPreview);
+  card.addEventListener("focus", preview);
+  card.addEventListener("blur", stopPreview);
+});
+
 if (lightbox) {
   const lbVideo = lightbox.querySelector(".lightbox__video");
   const lbCaption = document.getElementById("lightboxCaption");
   const lbClose = document.getElementById("lightboxClose");
 
-  const openLightbox = (item) => {
-    lbVideo.src = item.dataset.video;
+  const openLightbox = (card) => {
+    lbVideo.src = card.dataset.video;
     lbCaption.textContent =
-      item.querySelector(".work__index").textContent +
+      card.querySelector(".work-card__badge").textContent +
       " — " +
-      item.querySelector(".work__title").textContent;
+      card.querySelector(".work-card__title").textContent;
     lightbox.hidden = false;
     document.documentElement.style.overflow = "hidden";
     if (lenis) lenis.stop();
@@ -513,12 +585,14 @@ if (lightbox) {
     if (lenis) lenis.start();
   };
 
-  document.querySelectorAll(".work__item[data-video]").forEach((item) => {
-    item.addEventListener("click", () => openLightbox(item));
-    item.addEventListener("keydown", (e) => {
-      if (e.key === "Enter" || e.key === " ") {
+  workCards.forEach((card) => {
+    card.addEventListener("click", () => {
+      if (card.dataset.video) openLightbox(card);
+    });
+    card.addEventListener("keydown", (e) => {
+      if ((e.key === "Enter" || e.key === " ") && card.dataset.video) {
         e.preventDefault();
-        openLightbox(item);
+        openLightbox(card);
       }
     });
   });
