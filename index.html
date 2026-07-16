@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ads by Dian — Cinematic AI Ads Director</title>
-  <meta name="description" content="Ads by Dian — Cinematic AI Ads Director. Crafting ads that convert: AI ad films, brand films and product cinematics directed through a Higgsfield MCP pipeline." />
+  <title>Ads by Dian — Cinematic AI Ads</title>
+  <meta name="description" content="Ads by Dian — Cinematic AI Ads. Crafting ads that convert: AI ad films, brand films and product cinematics directed through a Higgsfield MCP pipeline." />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='13' fill='none' stroke='%23ff5c1a' stroke-width='2.5'/%3E%3Ccircle cx='16' cy='16' r='5' fill='%23ff5c1a'/%3E%3C/svg%3E" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -73,7 +73,6 @@
       <h1 class="hero__title">
         <span class="hero__line"><span class="hero__word">CINEMATIC</span></span>
         <span class="hero__line hero__line--serif"><span class="hero__word"><em>AI ads</em></span></span>
-        <span class="hero__line"><span class="hero__word">DIRECTOR</span></span>
       </h1>
 
       <p class="hero__sub">
@@ -83,11 +82,11 @@
 
       <div class="hero__reel" data-cursor="hover">
         <video class="hero__reel-video" autoplay muted loop playsinline preload="metadata">
-          <source src="assets/showreel.mp4" type="video/mp4" />
+          <source src="assets/reel-01.mp4" type="video/mp4" />
         </video>
         <div class="hero__reel-placeholder">
           <span>SHOWREEL SLOT</span>
-          <small>drop your reel at <code>assets/showreel.mp4</code></small>
+          <small>drop your reel at <code>assets/reel-01.mp4</code></small>
         </div>
         <div class="hero__reel-bar">
           <span class="hero__reel-label"><span class="rec-dot"></span> SHOWREEL &mdash; 2026</span>
@@ -184,30 +183,20 @@
     <section class="work section" id="work" data-scene="3">
       <span class="section__tag">SCENE 04 &mdash; SELECTED TAKES</span>
       <div class="work__list">
-        <article class="work__item" data-cursor="hover">
+        <article class="work__item" data-cursor="view" data-video="assets/reel-01.mp4" role="button" tabindex="0" aria-label="Play: The Scroll Stopper">
           <span class="work__index">TAKE 01</span>
-          <h3 class="work__title">Neon District</h3>
-          <span class="work__cat">Automotive &mdash; 30s spot</span>
+          <h3 class="work__title">The Scroll Stopper</h3>
+          <span class="work__cat">9:16 AI spot &mdash; 11s</span>
         </article>
-        <article class="work__item" data-cursor="hover">
+        <article class="work__item" data-cursor="view" data-video="assets/reel-02.mp4" role="button" tabindex="0" aria-label="Play: Ten Seconds of Want">
           <span class="work__index">TAKE 02</span>
-          <h3 class="work__title">Slow Bloom</h3>
-          <span class="work__cat">Fragrance &mdash; brand film</span>
+          <h3 class="work__title">Ten Seconds of Want</h3>
+          <span class="work__cat">9:16 AI spot &mdash; 10s</span>
         </article>
-        <article class="work__item" data-cursor="hover">
+        <article class="work__item" data-cursor="view" data-video="assets/reel-03.mp4" role="button" tabindex="0" aria-label="Play: Feed Cinema">
           <span class="work__index">TAKE 03</span>
-          <h3 class="work__title">Zero Gravity Coffee</h3>
-          <span class="work__cat">F&amp;B &mdash; product cinematic</span>
-        </article>
-        <article class="work__item" data-cursor="hover">
-          <span class="work__index">TAKE 04</span>
-          <h3 class="work__title">Chrome Hearts of Tokyo</h3>
-          <span class="work__cat">Fashion &mdash; spec ad</span>
-        </article>
-        <article class="work__item" data-cursor="hover">
-          <span class="work__index">TAKE 05</span>
-          <h3 class="work__title">The Last Billboard</h3>
-          <span class="work__cat">Tech &mdash; launch film</span>
+          <h3 class="work__title">Feed Cinema</h3>
+          <span class="work__cat">9:16 AI spot &mdash; 13s</span>
         </article>
       </div>
     </section>
@@ -260,6 +249,15 @@
     </section>
 
   </main>
+
+  <!-- Video lightbox -->
+  <div class="lightbox" id="lightbox" hidden>
+    <button class="lightbox__close" id="lightboxClose" type="button" data-cursor="hover" aria-label="Close video">CUT &times;</button>
+    <figure class="lightbox__stage">
+      <video class="lightbox__video" controls playsinline preload="metadata"></video>
+      <figcaption class="lightbox__caption" id="lightboxCaption"></figcaption>
+    </figure>
+  </div>
 
   <script src="js/vendor/gsap.min.js"></script>
   <script src="js/vendor/ScrollTrigger.min.js"></script>

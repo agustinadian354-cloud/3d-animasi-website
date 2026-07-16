@@ -448,6 +448,55 @@ if (reel) {
 }
 
 /* ------------------------------------------------------------
+   Work lightbox: click a take to play its reel
+------------------------------------------------------------ */
+const lightbox = document.getElementById("lightbox");
+if (lightbox) {
+  const lbVideo = lightbox.querySelector(".lightbox__video");
+  const lbCaption = document.getElementById("lightboxCaption");
+  const lbClose = document.getElementById("lightboxClose");
+
+  const openLightbox = (item) => {
+    lbVideo.src = item.dataset.video;
+    lbCaption.textContent =
+      item.querySelector(".work__index").textContent +
+      " — " +
+      item.querySelector(".work__title").textContent;
+    lightbox.hidden = false;
+    document.documentElement.style.overflow = "hidden";
+    if (lenis) lenis.stop();
+    lbVideo.play().catch(() => {});
+  };
+
+  const closeLightbox = () => {
+    lbVideo.pause();
+    lbVideo.removeAttribute("src");
+    lbVideo.load();
+    lightbox.hidden = true;
+    document.documentElement.style.overflow = "";
+    if (lenis) lenis.start();
+  };
+
+  document.querySelectorAll(".work__item[data-video]").forEach((item) => {
+    item.addEventListener("click", () => openLightbox(item));
+    item.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        openLightbox(item);
+      }
+    });
+  });
+
+  lbClose.addEventListener("click", closeLightbox);
+  lightbox.addEventListener("click", (e) => {
+    if (e.target === lightbox) closeLightbox();
+  });
+  window.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && !lightbox.hidden) closeLightbox();
+  });
+}
+
+/* ------------------------------------------------------------
    Custom cursor
 ------------------------------------------------------------ */
 const cursor = document.getElementById("cursor");
