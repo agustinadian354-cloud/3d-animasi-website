@@ -346,23 +346,41 @@ if (manifesto) {
   });
 }
 
-/* Stat counters */
+/* Stat counters — IntersectionObserver so they fire regardless of
+   how the page is scrolled (Lenis, native, anchor jump, iframe) */
 document.querySelectorAll(".stat__num").forEach((el) => {
   const target = parseInt(el.dataset.count, 10);
-  const state = { v: 0 };
-  ScrollTrigger.create({
-    trigger: el,
-    start: "top 85%",
-    once: true,
-    onEnter: () => {
-      gsap.to(state, {
-        v: target,
-        duration: 1.6,
-        ease: "power2.out",
-        onUpdate: () => (el.textContent = Math.round(state.v)),
-      });
-    },
-  });
+  let started = false;
+
+  const run = () => {
+    if (started) return;
+    started = true;
+    const state = { v: 0 };
+    gsap.to(state, {
+      v: target,
+      duration: 1.6,
+      ease: "power2.out",
+      onUpdate: () => (el.textContent = Math.round(state.v)),
+      onComplete: () => (el.textContent = target),
+    });
+  };
+
+  if ("IntersectionObserver" in window) {
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            run();
+            io.disconnect();
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+    io.observe(el);
+  } else {
+    run();
+  }
 });
 
 /* Generic rise-in for list items and cards */
