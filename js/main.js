@@ -287,7 +287,7 @@ function introSequence() {
     },
   }, "-=0.7");
 
-  tl.from(".hero__sub, .hero__meta, .hero__scroll, .hero__frame-info, .header", {
+  tl.from(".hero__sub, .hero__reel, .hero__meta, .hero__scroll, .hero__frame-info, .header", {
     opacity: 0,
     y: 20,
     duration: 0.8,
@@ -419,6 +419,33 @@ gsap.utils.toArray(".section__tag").forEach((el) => {
     scrollTrigger: { trigger: el, start: "top 90%", once: true },
   });
 });
+
+/* ------------------------------------------------------------
+   Hero showreel: autoplay muted, unmute toggle, placeholder
+   state when no video file is present yet
+------------------------------------------------------------ */
+const reel = document.querySelector(".hero__reel");
+if (reel) {
+  const video = reel.querySelector(".hero__reel-video");
+  const soundBtn = reel.querySelector(".hero__reel-sound");
+  const source = video.querySelector("source");
+
+  const markEmpty = () => reel.classList.add("hero__reel--empty");
+  source.addEventListener("error", markEmpty);
+  video.addEventListener("error", markEmpty);
+  video.addEventListener("loadeddata", () => {
+    reel.classList.remove("hero__reel--empty");
+    // some browsers pause autoplay for offscreen/late loads — nudge it
+    video.play().catch(() => {});
+  });
+
+  soundBtn.addEventListener("click", () => {
+    video.muted = !video.muted;
+    if (!video.muted) video.play().catch(() => {});
+    soundBtn.textContent = video.muted ? "UNMUTE" : "MUTE";
+    soundBtn.setAttribute("aria-label", video.muted ? "Unmute showreel" : "Mute showreel");
+  });
+}
 
 /* ------------------------------------------------------------
    Custom cursor
