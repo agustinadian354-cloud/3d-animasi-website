@@ -1,8 +1,8 @@
 /* ============================================================
-   DIAN — Cinematic AI Ads Director
+   Ads by Dian — Cinematic AI Ads
    3D scene: a spiral star galaxy — thousands of glowing
-   particles, warm orange core fading to teal arms — that
-   re-frames itself per scene like a camera changing shots.
+   particles — that re-frames itself per scene like a camera
+   changing shots.
    ============================================================ */
 
 import * as THREE from "three";
@@ -26,6 +26,75 @@ const VIDEOS = {
 };
 
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/* ------------------------------------------------------------
+   i18n — texts live in js/translations.js (window.TRANSLATIONS).
+   Default language: Indonesian. Choice persists in localStorage.
+------------------------------------------------------------ */
+const I18N = window.TRANSLATIONS || { id: {}, en: {} };
+let lang = localStorage.getItem("adsbydian-lang");
+if (lang !== "id" && lang !== "en") lang = "id";
+const t = (key) => (I18N[lang] && I18N[lang][key]) || "";
+
+function applyLanguage(next) {
+  lang = next;
+  try {
+    localStorage.setItem("adsbydian-lang", lang);
+  } catch (e) {}
+  document.documentElement.lang = lang;
+
+  document.querySelectorAll("[data-i18n]").forEach((el) => {
+    const v = t(el.dataset.i18n);
+    if (v) el.textContent = v;
+  });
+  document.querySelectorAll("[data-i18n-html]").forEach((el) => {
+    const v = t(el.dataset.i18nHtml);
+    if (v) el.innerHTML = v;
+  });
+
+  // document metadata
+  document.title = t("meta.title");
+  const setMeta = (sel, val) => {
+    const m = document.querySelector(sel);
+    if (m && val) m.setAttribute("content", val);
+  };
+  setMeta('meta[name="description"]', t("meta.desc"));
+  setMeta('meta[property="og:title"]', t("meta.title"));
+  setMeta('meta[property="og:description"]', t("meta.desc"));
+  setMeta('meta[name="twitter:title"]', t("meta.title"));
+  setMeta('meta[name="twitter:description"]', t("meta.desc"));
+
+  // image alt text
+  const aboutImg = document.querySelector(".about__photo img");
+  if (aboutImg) aboutImg.alt = t("about.photoAlt");
+
+  // work-card aria labels
+  document.querySelectorAll(".work-card").forEach((card) => {
+    const title = card.querySelector(".work-card__title");
+    if (card.classList.contains("work-card--soon")) card.setAttribute("aria-label", t("work.soon"));
+    else if (title) card.setAttribute("aria-label", t("work.playPrefix") + ": " + title.textContent);
+  });
+
+  // reel sound button label follows current mute state
+  const sBtn = document.getElementById("reelSound");
+  const rVid = document.querySelector(".hero__reel-video");
+  if (sBtn && rVid) sBtn.textContent = rVid.muted ? t("reel.unmute") : t("reel.mute");
+
+  // toggle UI state
+  document.querySelectorAll(".lang-toggle__btn").forEach((b) =>
+    b.classList.toggle("is-active", b.dataset.lang === lang)
+  );
+}
+applyLanguage(lang);
+
+document.querySelectorAll(".lang-toggle__btn").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    if (btn.dataset.lang === lang) return;
+    applyLanguage(btn.dataset.lang);
+    buildManifesto(); // re-split the translated manifesto text
+    if (typeof ScrollTrigger !== "undefined") ScrollTrigger.refresh();
+  });
+});
 
 /* ------------------------------------------------------------
    Smooth scroll (Lenis)
@@ -322,9 +391,19 @@ function introSequence() {
    Scroll animations
 ------------------------------------------------------------ */
 
-/* Manifesto: word-by-word ink-in */
-const manifesto = document.querySelector(".manifesto__text");
-if (manifesto) {
+/* Manifesto: word-by-word ink-in.
+   Rebuilt on language switch, so it lives in a function. */
+let manifestoTween = null;
+function buildManifesto() {
+  const manifesto = document.querySelector(".manifesto__text");
+  if (!manifesto) return;
+
+  if (manifestoTween) {
+    if (manifestoTween.scrollTrigger) manifestoTween.scrollTrigger.kill();
+    manifestoTween.kill();
+    manifestoTween = null;
+  }
+
   const nodes = Array.from(manifesto.childNodes);
   manifesto.innerHTML = "";
   let lastWordSpan = null;
@@ -355,7 +434,7 @@ if (manifesto) {
     node.textContent.split(/\s+/).filter(Boolean).forEach((w) => addWord(w, wrapTag));
   });
 
-  gsap.to(".manifesto__text .word", {
+  manifestoTween = gsap.to(".manifesto__text .word", {
     opacity: 1,
     stagger: 0.06,
     ease: "none",
@@ -367,6 +446,7 @@ if (manifesto) {
     },
   });
 }
+buildManifesto();
 
 /* Stat counters — IntersectionObserver so they fire regardless of
    how the page is scrolled (Lenis, native, anchor jump, iframe) */
@@ -486,7 +566,7 @@ if (reel) {
   soundBtn.addEventListener("click", () => {
     video.muted = !video.muted;
     if (!video.muted) video.play().catch(() => {});
-    soundBtn.textContent = video.muted ? "UNMUTE" : "MUTE";
+    soundBtn.textContent = video.muted ? t("reel.unmute") : t("reel.mute");
     soundBtn.setAttribute("aria-label", video.muted ? "Unmute showreel" : "Mute showreel");
   });
 }

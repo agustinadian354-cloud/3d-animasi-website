@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -42,7 +42,7 @@
   <!-- Preloader -->
   <div class="preloader" id="preloader">
     <div class="preloader__inner">
-      <span class="preloader__label">ADS BY DIAN &mdash; A FILM BY AI &times; HUMAN</span>
+      <span class="preloader__label" data-i18n="preloader.label">ADS BY DIAN &mdash; A FILM BY AI &times; HUMAN</span>
       <span class="preloader__count" id="preloaderCount">00</span>
       <div class="preloader__bar"><span id="preloaderBar"></span></div>
     </div>
@@ -69,14 +69,19 @@
       <span class="rec-dot"></span> REC &mdash; <span id="clock">00:00:00</span>
     </div>
     <nav class="header__nav">
-      <a href="#work" data-cursor="hover">Work</a>
-      <a href="#services" data-cursor="hover">Services</a>
-      <a href="#pricing" data-cursor="hover">Pricing</a>
-      <a href="#about" data-cursor="hover">About</a>
-      <a href="#faq" data-cursor="hover">FAQ</a>
-      <a href="#contact" data-cursor="hover">Contact</a>
+      <a href="#work" data-cursor="hover" data-i18n="nav.work">Work</a>
+      <a href="#services" data-cursor="hover" data-i18n="nav.services">Services</a>
+      <a href="#pricing" data-cursor="hover" data-i18n="nav.pricing">Pricing</a>
+      <a href="#about" data-cursor="hover" data-i18n="nav.about">About</a>
+      <a href="#faq" data-cursor="hover" data-i18n="nav.faq">FAQ</a>
+      <a href="#contact" data-cursor="hover" data-i18n="nav.contact">Contact</a>
     </nav>
-    <a href="#contact" class="header__cta" data-cursor="hover">Start a project</a>
+    <div class="lang-toggle" role="group" aria-label="Language / Bahasa">
+      <button class="lang-toggle__btn" type="button" data-lang="id" data-cursor="hover">ID</button>
+      <span class="lang-toggle__sep">/</span>
+      <button class="lang-toggle__btn" type="button" data-lang="en" data-cursor="hover">EN</button>
+    </div>
+    <a href="#contact" class="header__cta" data-cursor="hover" data-i18n="nav.cta">Start a project</a>
   </header>
 
   <main id="top">
@@ -84,8 +89,8 @@
     <!-- ============ HERO ============ -->
     <section class="hero section" data-scene="0">
       <div class="hero__meta">
-        <span>SCENE 01 &mdash; TAKE 01</span>
-        <span>EST. 2024 &mdash; JAKARTA / WORLDWIDE</span>
+        <span data-i18n="hero.meta1">SCENE 01 &mdash; TAKE 01</span>
+        <span data-i18n="hero.meta2">EST. 2024 &mdash; BOGOR / WORLDWIDE</span>
       </div>
 
       <h1 class="hero__title">
@@ -93,7 +98,7 @@
         <span class="hero__line hero__line--serif"><span class="hero__word"><em>AI ads</em></span></span>
       </h1>
 
-      <p class="hero__sub">
+      <p class="hero__sub" data-i18n-html="hero.sub">
         I direct AI-generated commercials that don't look AI-generated.<br />
         Big-screen emotion. Startup-speed production.
       </p>
@@ -103,17 +108,17 @@
           <source data-src="assets/reel-01.mp4" type="video/mp4" />
         </video>
         <div class="hero__reel-placeholder">
-          <span>SHOWREEL SLOT</span>
-          <small>drop your reel at <code>assets/reel-01.mp4</code></small>
+          <span data-i18n="hero.reelSlot">SHOWREEL SLOT</span>
+          <small data-i18n-html="hero.reelDrop">drop your reel at <code>assets/reel-01.mp4</code></small>
         </div>
         <div class="hero__reel-bar">
-          <span class="hero__reel-label"><span class="rec-dot"></span> SHOWREEL &mdash; 2026</span>
+          <span class="hero__reel-label" data-i18n-html="hero.reelLabel"><span class="rec-dot"></span> SHOWREEL &mdash; 2026</span>
           <button class="hero__reel-sound" id="reelSound" type="button" data-cursor="hover" aria-label="Unmute showreel">UNMUTE</button>
         </div>
       </div>
 
       <div class="hero__scroll">
-        <span>SCROLL TO ROLL</span>
+        <span data-i18n="hero.scroll">SCROLL TO ROLL</span>
         <div class="hero__scroll-line"></div>
       </div>
 
@@ -125,73 +130,73 @@
     <!-- ============ MARQUEE ============ -->
     <div class="marquee" aria-hidden="true">
       <div class="marquee__track">
-        <span>CRAFTING ADS THAT CONVERT &mdash; AI COMMERCIALS &mdash; BRAND FILMS &mdash; PRODUCT CINEMATICS &mdash; HIGGSFIELD PIPELINE &mdash; </span>
-        <span>CRAFTING ADS THAT CONVERT &mdash; AI COMMERCIALS &mdash; BRAND FILMS &mdash; PRODUCT CINEMATICS &mdash; HIGGSFIELD PIPELINE &mdash; </span>
+        <span data-i18n="marquee">CRAFTING ADS THAT CONVERT &mdash; AI COMMERCIALS &mdash; BRAND FILMS &mdash; PRODUCT CINEMATICS &mdash; HIGGSFIELD PIPELINE &mdash; </span>
+        <span data-i18n="marquee">CRAFTING ADS THAT CONVERT &mdash; AI COMMERCIALS &mdash; BRAND FILMS &mdash; PRODUCT CINEMATICS &mdash; HIGGSFIELD PIPELINE &mdash; </span>
       </div>
     </div>
 
     <!-- ============ MANIFESTO ============ -->
     <section class="manifesto section" data-scene="1">
-      <span class="section__tag">SCENE 02 &mdash; THE MANIFESTO</span>
-      <h2 class="manifesto__text split-reveal">
+      <span class="section__tag" data-i18n="manifesto.tag">SCENE 02 &mdash; THE MANIFESTO</span>
+      <h2 class="manifesto__text split-reveal" data-i18n-html="manifesto.text">
         Anyone can prompt. <em>Few can direct.</em> I bring a century of film language &mdash; blocking, lensing, light, rhythm &mdash; into the AI pipeline, so your brand gets a <em>film</em>, not a demo.
       </h2>
       <div class="manifesto__stats">
         <div class="stat" data-cursor="hover">
           <span class="stat__num" data-count="48">0</span><span class="stat__plus">+</span>
-          <span class="stat__label">AI spots directed</span>
+          <span class="stat__label" data-i18n="stats.1">AI spots directed</span>
         </div>
         <div class="stat" data-cursor="hover">
           <span class="stat__num" data-count="12">0</span><span class="stat__plus">M+</span>
-          <span class="stat__label">Organic views</span>
+          <span class="stat__label" data-i18n="stats.2">Organic views</span>
         </div>
         <div class="stat" data-cursor="hover">
           <span class="stat__num" data-count="90">0</span><span class="stat__plus">%</span>
-          <span class="stat__label">Cheaper than a film set</span>
+          <span class="stat__label" data-i18n="stats.3">Cheaper than a film set</span>
         </div>
         <div class="stat" data-cursor="hover">
           <span class="stat__num" data-count="7">0</span><span class="stat__plus">d</span>
-          <span class="stat__label">Avg. delivery time</span>
+          <span class="stat__label" data-i18n="stats.4">Avg. delivery time</span>
         </div>
       </div>
       <div class="skills">
-        <span class="skills__label">SKILLSET</span>
+        <span class="skills__label" data-i18n="skills.label">SKILLSET</span>
         <ul class="skills__list">
-          <li>Cinematic AI ad video</li>
-          <li>Prompt cinematography</li>
-          <li>Higgsfield MCP pipeline</li>
-          <li>Storyboarding &amp; treatment</li>
-          <li>Edit &mdash; sound &mdash; color grade</li>
+          <li data-i18n="skills.1">Cinematic AI ad video</li>
+          <li data-i18n="skills.2">Prompt cinematography</li>
+          <li data-i18n="skills.3">Higgsfield MCP pipeline</li>
+          <li data-i18n="skills.4">Storyboarding &amp; treatment</li>
+          <li data-i18n="skills.5">Edit &mdash; sound &mdash; color grade</li>
         </ul>
       </div>
     </section>
 
     <!-- ============ SERVICES ============ -->
     <section class="services section" id="services" data-scene="2">
-      <span class="section__tag">SCENE 03 &mdash; WHAT I DIRECT</span>
+      <span class="section__tag" data-i18n="services.tag">SCENE 03 &mdash; WHAT I DIRECT</span>
       <div class="services__list">
         <article class="service" data-cursor="hover">
           <span class="service__num">01</span>
-          <h3 class="service__title">AI Commercials</h3>
-          <p class="service__desc">Full 15&ndash;60s spots, directed shot-by-shot. Storyboard, prompt cinematography, edit, sound design, grade. Broadcast-ready.</p>
+          <h3 class="service__title" data-i18n="services.1.title">AI Commercials</h3>
+          <p class="service__desc" data-i18n="services.1.desc">Full 15&ndash;60s spots, directed shot-by-shot. Storyboard, prompt cinematography, edit, sound design, grade. Broadcast-ready.</p>
           <span class="service__arrow">&rarr;</span>
         </article>
         <article class="service" data-cursor="hover">
           <span class="service__num">02</span>
-          <h3 class="service__title">Brand Films</h3>
-          <p class="service__desc">Emotional long-form narratives. The kind of film that makes people feel something about a brand &mdash; without a single day on set.</p>
+          <h3 class="service__title" data-i18n="services.2.title">Brand Films</h3>
+          <p class="service__desc" data-i18n="services.2.desc">Emotional long-form narratives. The kind of film that makes people feel something about a brand &mdash; without a single day on set.</p>
           <span class="service__arrow">&rarr;</span>
         </article>
         <article class="service" data-cursor="hover">
           <span class="service__num">03</span>
-          <h3 class="service__title">Product Cinematics</h3>
-          <p class="service__desc">Hero-shot sequences for launches. Macro textures, impossible camera moves, physics that obey the story, not reality.</p>
+          <h3 class="service__title" data-i18n="services.3.title">Product Cinematics</h3>
+          <p class="service__desc" data-i18n="services.3.desc">Hero-shot sequences for launches. Macro textures, impossible camera moves, physics that obey the story, not reality.</p>
           <span class="service__arrow">&rarr;</span>
         </article>
         <article class="service" data-cursor="hover">
           <span class="service__num">04</span>
-          <h3 class="service__title">Creative Direction</h3>
-          <p class="service__desc">For agencies &amp; in-house teams adopting AI video. I set the visual grammar, pipelines and taste level &mdash; you keep the credit.</p>
+          <h3 class="service__title" data-i18n="services.4.title">Creative Direction</h3>
+          <p class="service__desc" data-i18n="services.4.desc">For agencies &amp; in-house teams adopting AI video. I set the visual grammar, pipelines and taste level &mdash; you keep the credit.</p>
           <span class="service__arrow">&rarr;</span>
         </article>
       </div>
@@ -199,194 +204,194 @@
 
     <!-- ============ WORK ============ -->
     <section class="work section" id="work" data-scene="3">
-      <span class="section__tag">SCENE 04 &mdash; SELECTED TAKES</span>
+      <span class="section__tag" data-i18n="work.tag">SCENE 04 &mdash; SELECTED TAKES</span>
       <div class="work__grid">
         <article class="work-card" data-take="0" data-cursor="view" role="button" tabindex="0" aria-label="Play: The Scroll Stopper">
           <div class="work-card__media">
             <video muted loop playsinline preload="metadata"></video>
             <span class="work-card__badge">TAKE 01</span>
-            <span class="work-card__soon">COMING SOON</span>
+            <span class="work-card__soon" data-i18n="work.soon">COMING SOON</span>
           </div>
-          <h3 class="work-card__title">The Scroll Stopper</h3>
-          <span class="work-card__cat">9:16 AI spot &mdash; 11s</span>
+          <h3 class="work-card__title" data-i18n="work.1.title">The Scroll Stopper</h3>
+          <span class="work-card__cat" data-i18n="work.1.cat">9:16 AI spot &mdash; 11s</span>
         </article>
         <article class="work-card" data-take="1" data-cursor="view" role="button" tabindex="0" aria-label="Play: Ten Seconds of Want">
           <div class="work-card__media">
             <video muted loop playsinline preload="metadata"></video>
             <span class="work-card__badge">TAKE 02</span>
-            <span class="work-card__soon">COMING SOON</span>
+            <span class="work-card__soon" data-i18n="work.soon">COMING SOON</span>
           </div>
-          <h3 class="work-card__title">Ten Seconds of Want</h3>
-          <span class="work-card__cat">9:16 AI spot &mdash; 10s</span>
+          <h3 class="work-card__title" data-i18n="work.2.title">Ten Seconds of Want</h3>
+          <span class="work-card__cat" data-i18n="work.2.cat">9:16 AI spot &mdash; 10s</span>
         </article>
         <article class="work-card" data-take="2" data-cursor="view" role="button" tabindex="0" aria-label="Play: Feed Cinema">
           <div class="work-card__media">
             <video muted loop playsinline preload="metadata"></video>
             <span class="work-card__badge">TAKE 03</span>
-            <span class="work-card__soon">COMING SOON</span>
+            <span class="work-card__soon" data-i18n="work.soon">COMING SOON</span>
           </div>
-          <h3 class="work-card__title">Feed Cinema</h3>
-          <span class="work-card__cat">9:16 AI spot &mdash; 13s</span>
+          <h3 class="work-card__title" data-i18n="work.3.title">Feed Cinema</h3>
+          <span class="work-card__cat" data-i18n="work.3.cat">9:16 AI spot &mdash; 13s</span>
         </article>
         <article class="work-card" data-take="3" data-cursor="hover" aria-label="Coming soon">
           <div class="work-card__media">
             <video muted loop playsinline preload="metadata"></video>
             <span class="work-card__badge">TAKE 04</span>
-            <span class="work-card__soon">COMING SOON</span>
+            <span class="work-card__soon" data-i18n="work.soon">COMING SOON</span>
           </div>
-          <h3 class="work-card__title">Untitled Project</h3>
-          <span class="work-card__cat">In production</span>
+          <h3 class="work-card__title" data-i18n="work.soonTitle">Untitled Project</h3>
+          <span class="work-card__cat" data-i18n="work.soonCat">In production</span>
         </article>
         <article class="work-card" data-take="4" data-cursor="hover" aria-label="Coming soon">
           <div class="work-card__media">
             <video muted loop playsinline preload="metadata"></video>
             <span class="work-card__badge">TAKE 05</span>
-            <span class="work-card__soon">COMING SOON</span>
+            <span class="work-card__soon" data-i18n="work.soon">COMING SOON</span>
           </div>
-          <h3 class="work-card__title">Untitled Project</h3>
-          <span class="work-card__cat">In production</span>
+          <h3 class="work-card__title" data-i18n="work.soonTitle">Untitled Project</h3>
+          <span class="work-card__cat" data-i18n="work.soonCat">In production</span>
         </article>
       </div>
     </section>
 
     <!-- ============ PROCESS ============ -->
     <section class="process section" id="process" data-scene="4">
-      <span class="section__tag">SCENE 05 &mdash; HOW A FILM HAPPENS</span>
+      <span class="section__tag" data-i18n="process.tag">SCENE 05 &mdash; HOW A FILM HAPPENS</span>
       <div class="process__steps">
         <div class="process__step">
           <span class="process__num">A</span>
-          <h3>Script &amp; Boards</h3>
-          <p>We lock the idea. I write the treatment and storyboard every frame like a real shoot &mdash; because it is one.</p>
+          <h3 data-i18n="process.a.title">Script &amp; Boards</h3>
+          <p data-i18n="process.a.desc">We lock the idea. I write the treatment and storyboard every frame like a real shoot &mdash; because it is one.</p>
         </div>
         <div class="process__step">
           <span class="process__num">B</span>
-          <h3>Prompt Cinematography</h3>
-          <p>Each shot gets directed: lens, movement, light, blocking &mdash; generated through my Higgsfield MCP pipeline, curated and re-directed until it holds up on a big screen and stops thumbs on the feed.</p>
+          <h3 data-i18n="process.b.title">Prompt Cinematography</h3>
+          <p data-i18n="process.b.desc">Each shot gets directed: lens, movement, light, blocking &mdash; generated through my Higgsfield MCP pipeline, curated and re-directed until it holds up on a big screen and stops thumbs on the feed.</p>
         </div>
         <div class="process__step">
           <span class="process__num">C</span>
-          <h3>Edit &amp; Sound</h3>
-          <p>Rhythm is where ads live or die. Cut, sound design and music are built together, not bolted on.</p>
+          <h3 data-i18n="process.c.title">Edit &amp; Sound</h3>
+          <p data-i18n="process.c.desc">Rhythm is where ads live or die. Cut, sound design and music are built together, not bolted on.</p>
         </div>
         <div class="process__step">
           <span class="process__num">D</span>
-          <h3>Grade &amp; Delivery</h3>
-          <p>Cinematic color pass, masters in every ratio &mdash; 2.39:1 for the film, 9:16 for the feed. Delivered in days.</p>
+          <h3 data-i18n="process.d.title">Grade &amp; Delivery</h3>
+          <p data-i18n="process.d.desc">Cinematic color pass, masters in every ratio &mdash; 2.39:1 for the film, 9:16 for the feed. Delivered in days.</p>
         </div>
       </div>
     </section>
 
     <!-- ============ PRICING ============ -->
     <section class="pricing section" id="pricing" data-scene="6">
-      <span class="section__tag">SCENE 06 &mdash; THE RATE CARD</span>
+      <span class="section__tag" data-i18n="pricing.tag">SCENE 06 &mdash; THE RATE CARD</span>
       <div class="pricing__grid">
         <article class="price-card" data-cursor="hover">
           <span class="price-card__num">01</span>
-          <h3 class="price-card__name">Launch</h3>
-          <p class="price-card__for">For a first AI spot that proves the format.</p>
-          <p class="price-card__price"><small>mulai dari</small> Rp 2,5 jt</p>
+          <h3 class="price-card__name" data-i18n="pricing.1.name">Launch</h3>
+          <p class="price-card__for" data-i18n="pricing.1.for">For a first AI spot that proves the format.</p>
+          <p class="price-card__price"><small data-i18n="pricing.from">mulai dari</small> Rp 2,5 jt</p>
           <ul class="price-card__list">
-            <li>1 &times; 9:16 AI spot (10&ndash;15s)</li>
-            <li>Script, boards &amp; prompt cinematography</li>
-            <li>Edit, sound design &amp; color grade</li>
-            <li>1 revision round</li>
-            <li>Delivery in 3 days</li>
+            <li data-i18n="pricing.1.li1">1 &times; 9:16 AI spot (10&ndash;15s)</li>
+            <li data-i18n="pricing.1.li2">Script, boards &amp; prompt cinematography</li>
+            <li data-i18n="pricing.1.li3">Edit, sound design &amp; color grade</li>
+            <li data-i18n="pricing.1.li4">1 revision round</li>
+            <li data-i18n="pricing.1.li5">Delivery in 3 days</li>
           </ul>
-          <a class="price-card__cta" href="mailto:adsbydian@gmail.com?subject=Launch%20package" data-cursor="hover">Book a spot &rarr;</a>
+          <a class="price-card__cta" href="mailto:adsbydian@gmail.com?subject=Launch%20package" data-cursor="hover" data-i18n="pricing.1.cta">Book a spot &rarr;</a>
         </article>
         <article class="price-card price-card--featured" data-cursor="hover">
-          <span class="price-card__badge">MOST BOOKED</span>
+          <span class="price-card__badge" data-i18n="pricing.badge">MOST BOOKED</span>
           <span class="price-card__num">02</span>
-          <h3 class="price-card__name">Campaign</h3>
-          <p class="price-card__for">For launches that need variations to test.</p>
-          <p class="price-card__price"><small>mulai dari</small> Rp 6,5 jt</p>
+          <h3 class="price-card__name" data-i18n="pricing.2.name">Campaign</h3>
+          <p class="price-card__for" data-i18n="pricing.2.for">For launches that need variations to test.</p>
+          <p class="price-card__price"><small data-i18n="pricing.from">mulai dari</small> Rp 6,5 jt</p>
           <ul class="price-card__list">
-            <li>3 &times; AI spots with A/B hook variations</li>
-            <li>Concept &amp; visual grammar for the set</li>
-            <li>All ratios: 9:16 &mdash; 1:1 &mdash; 16:9</li>
-            <li>2 revision rounds</li>
-            <li>Delivery in 7 days</li>
+            <li data-i18n="pricing.2.li1">3 &times; AI spots with A/B hook variations</li>
+            <li data-i18n="pricing.2.li2">Concept &amp; visual grammar for the set</li>
+            <li data-i18n="pricing.2.li3">All ratios: 9:16 &mdash; 1:1 &mdash; 16:9</li>
+            <li data-i18n="pricing.2.li4">2 revision rounds</li>
+            <li data-i18n="pricing.2.li5">Delivery in 7 days</li>
           </ul>
-          <a class="price-card__cta" href="mailto:adsbydian@gmail.com?subject=Campaign%20package" data-cursor="hover">Plan a campaign &rarr;</a>
+          <a class="price-card__cta" href="mailto:adsbydian@gmail.com?subject=Campaign%20package" data-cursor="hover" data-i18n="pricing.2.cta">Plan a campaign &rarr;</a>
         </article>
         <article class="price-card" data-cursor="hover">
           <span class="price-card__num">03</span>
-          <h3 class="price-card__name">Retainer</h3>
-          <p class="price-card__for">For brands that ship ads every single week.</p>
-          <p class="price-card__price"><small>mulai dari</small> Rp 15 jt<small>/bln</small></p>
+          <h3 class="price-card__name" data-i18n="pricing.3.name">Retainer</h3>
+          <p class="price-card__for" data-i18n="pricing.3.for">For brands that ship ads every single week.</p>
+          <p class="price-card__price"><small data-i18n="pricing.from">mulai dari</small> Rp 15 jt<small data-i18n="pricing.perMonth">/bln</small></p>
           <ul class="price-card__list">
-            <li>8 &times; AI spots per month</li>
-            <li>Monthly creative direction &amp; strategy</li>
-            <li>Priority production slot</li>
-            <li>Unlimited hook re-cuts</li>
-            <li>Cancel anytime</li>
+            <li data-i18n="pricing.3.li1">8 &times; AI spots per month</li>
+            <li data-i18n="pricing.3.li2">Monthly creative direction &amp; strategy</li>
+            <li data-i18n="pricing.3.li3">Priority production slot</li>
+            <li data-i18n="pricing.3.li4">Unlimited hook re-cuts</li>
+            <li data-i18n="pricing.3.li5">Cancel anytime</li>
           </ul>
-          <a class="price-card__cta" href="mailto:adsbydian@gmail.com?subject=Retainer" data-cursor="hover">Go monthly &rarr;</a>
+          <a class="price-card__cta" href="mailto:adsbydian@gmail.com?subject=Retainer" data-cursor="hover" data-i18n="pricing.3.cta">Go monthly &rarr;</a>
         </article>
       </div>
-      <p class="pricing__note">Rates flex with scope &mdash; tell me the brief and I'll quote the exact number in 24h.</p>
+      <p class="pricing__note" data-i18n="pricing.note">Rates flex with scope &mdash; tell me the brief and I'll quote the exact number in 24h.</p>
     </section>
 
     <!-- ============ ABOUT ============ -->
     <section class="about section" id="about" data-scene="7">
-      <span class="section__tag">SCENE 07 &mdash; BEHIND THE CAMERA</span>
+      <span class="section__tag" data-i18n="about.tag">SCENE 07 &mdash; BEHIND THE CAMERA</span>
       <div class="about__grid">
         <figure class="about__photo" data-cursor="hover">
-          <img src="assets/dian.png" alt="Portrait of Dian, cinematic AI ads director" loading="lazy" />
-          <figcaption><span class="rec-dot"></span> DIAN &mdash; ON SET, EVERYWHERE</figcaption>
+          <img src="assets/dian.png" alt="Portrait of Dian — Cinematic AI Ads" loading="lazy" />
+          <figcaption data-i18n-html="about.figcaption"><span class="rec-dot"></span> DIAN &mdash; ON SET, EVERYWHERE</figcaption>
         </figure>
         <div class="about__body">
-          <h2 class="about__name">Dian</h2>
-          <p class="about__role">Cinematic AI Ads &mdash; Jakarta / Worldwide</p>
-          <p class="about__bio">
+          <h2 class="about__name" data-i18n="about.name">Dian</h2>
+          <p class="about__role" data-i18n="about.role">Cinematic AI Ads &mdash; Bogor / Worldwide</p>
+          <p class="about__bio" data-i18n="about.bio">
             I spent years studying why some ads get skipped and others get watched twice &mdash;
             then AI video arrived and changed who gets to make the second kind. Now I direct
             AI-generated commercials through a Higgsfield pipeline: real film language, blocking,
             lensing and rhythm, at the speed and budget of a startup. Small brands deserve
             big-screen emotion too.
           </p>
-          <p class="about__tagline"><em>Directed by human. Rendered by AI.</em></p>
+          <p class="about__tagline" data-i18n-html="about.tagline"><em>Directed by human. Rendered by AI.</em></p>
         </div>
       </div>
     </section>
 
     <!-- ============ FAQ ============ -->
     <section class="faq section" id="faq" data-scene="8">
-      <span class="section__tag">SCENE 08 &mdash; DIRECTOR'S NOTES / Q&amp;A</span>
+      <span class="section__tag" data-i18n="faq.tag">SCENE 08 &mdash; Q&amp;A / PRODUCTION NOTES</span>
       <div class="faq__list">
         <details class="faq__item">
-          <summary data-cursor="hover">Will my ad look &ldquo;AI-generated&rdquo;?<span class="faq__icon">+</span></summary>
-          <p>That fear is exactly why direction matters. Every shot is storyboarded, lensed, lit and graded like a real film &mdash; then curated and re-generated until nothing feels synthetic. The goal isn't to hide the tool; it's to make people feel something before they even wonder how it was made.</p>
+          <summary data-cursor="hover"><span data-i18n="faq.q1">Will my ad look &ldquo;AI-generated&rdquo;?</span><span class="faq__icon">+</span></summary>
+          <p data-i18n="faq.a1">That fear is exactly why direction matters. Every shot is storyboarded, lensed, lit and graded like a real film &mdash; then curated and re-generated until nothing feels synthetic. The goal isn't to hide the tool; it's to make people feel something before they even wonder how it was made.</p>
         </details>
         <details class="faq__item">
-          <summary data-cursor="hover">Can I use the ads commercially?<span class="faq__icon">+</span></summary>
-          <p>Yes &mdash; full commercial license. The master files are yours to run on paid media, socials, marketplaces, TV or anywhere else, with no extra usage fees. I only keep the right to show the work in my portfolio (and I'll ask first if the project is under embargo).</p>
+          <summary data-cursor="hover"><span data-i18n="faq.q2">Can I use the ads commercially?</span><span class="faq__icon">+</span></summary>
+          <p data-i18n="faq.a2">Yes &mdash; full commercial license. The master files are yours to run on paid media, socials, marketplaces, TV or anywhere else, with no extra usage fees. I only keep the right to show the work in my portfolio (and I'll ask first if the project is under embargo).</p>
         </details>
         <details class="faq__item">
-          <summary data-cursor="hover">How do revisions work?<span class="faq__icon">+</span></summary>
-          <p>Launch includes one revision round, Campaign two, and Retainer gets unlimited hook re-cuts. A &ldquo;round&rdquo; means one consolidated list of changes &mdash; edit, pacing, text, music. Changing the entire concept after approval counts as a new brief, and I'll always tell you before anything costs extra.</p>
+          <summary data-cursor="hover"><span data-i18n="faq.q3">How do revisions work?</span><span class="faq__icon">+</span></summary>
+          <p data-i18n="faq.a3">Launch includes one revision round, Campaign two, and Retainer gets unlimited hook re-cuts. A &ldquo;round&rdquo; means one consolidated list of changes &mdash; edit, pacing, text, music. Changing the entire concept after approval counts as a new brief, and I'll always tell you before anything costs extra.</p>
         </details>
         <details class="faq__item">
-          <summary data-cursor="hover">How fast is delivery?<span class="faq__icon">+</span></summary>
-          <p>A single spot ships in about 3 days from an approved script; a 3-spot campaign in about 7. The clock starts once the brief and references are locked. Need it faster? Rush slots exist &mdash; mention your deadline in the first email.</p>
+          <summary data-cursor="hover"><span data-i18n="faq.q4">How fast is delivery?</span><span class="faq__icon">+</span></summary>
+          <p data-i18n="faq.a4">A single spot ships in about 3 days from an approved script; a 3-spot campaign in about 7. The clock starts once the brief and references are locked. Need it faster? Rush slots exist &mdash; mention your deadline in the first email.</p>
         </details>
         <details class="faq__item">
-          <summary data-cursor="hover">What formats and ratios do I receive?<span class="faq__icon">+</span></summary>
-          <p>Every delivery includes 9:16 for Reels/TikTok/Shorts as the hero format, plus 1:1 and 16:9 masters where the package includes them. Files come as clean H.264 MP4s (and ProRes on request), color-graded, mixed, with and without burned-in captions.</p>
+          <summary data-cursor="hover"><span data-i18n="faq.q5">What formats and ratios do I receive?</span><span class="faq__icon">+</span></summary>
+          <p data-i18n="faq.a5">Every delivery includes 9:16 for Reels/TikTok/Shorts as the hero format, plus 1:1 and 16:9 masters where the package includes them. Files come as clean H.264 MP4s (and ProRes on request), color-graded, mixed, with and without burned-in captions.</p>
         </details>
       </div>
     </section>
 
     <!-- ============ CONTACT ============ -->
     <section class="contact section" id="contact" data-scene="9">
-      <span class="section__tag">FINAL SCENE &mdash; ROLL CREDITS</span>
+      <span class="section__tag" data-i18n="contact.tag">FINAL SCENE &mdash; ROLL CREDITS</span>
       <h2 class="contact__title">
-        <span class="contact__line">Your brand&rsquo;s</span>
-        <span class="contact__line"><em>first film</em></span>
-        <span class="contact__line">starts here.</span>
+        <span class="contact__line" data-i18n="contact.line1">Your brand&rsquo;s</span>
+        <span class="contact__line" data-i18n-html="contact.line2"><em>first film</em></span>
+        <span class="contact__line" data-i18n="contact.line3">starts here.</span>
       </h2>
       <a href="mailto:adsbydian@gmail.com" class="contact__email" data-cursor="hover">
-        <span class="contact__email-label">EMAIL THE DIRECTOR</span>
+        <span class="contact__email-label" data-i18n="contact.emailLabel">EMAIL ME</span>
         <span class="contact__email-address">adsbydian@gmail.com <span class="contact__email-arrow">&rarr;</span></span>
       </a>
 
@@ -419,8 +424,8 @@
         </a>
       </div>
       <footer class="footer">
-        <span>&copy; 2026 Ads by Dian &mdash; Cinematic AI Ads Director</span>
-        <span>Directed by human. Rendered by AI.</span>
+        <span data-i18n="footer.copy">&copy; 2025 Ads by Dian &mdash; Cinematic AI Ads</span>
+        <span data-i18n="footer.tag">Directed by human. Rendered by AI.</span>
       </footer>
     </section>
 
@@ -428,13 +433,14 @@
 
   <!-- Video lightbox -->
   <div class="lightbox" id="lightbox" hidden>
-    <button class="lightbox__close" id="lightboxClose" type="button" data-cursor="hover" aria-label="Close video">CUT &times;</button>
+    <button class="lightbox__close" id="lightboxClose" type="button" data-cursor="hover" aria-label="Close video" data-i18n="lightbox.close">CUT &times;</button>
     <figure class="lightbox__stage">
       <video class="lightbox__video" controls playsinline preload="none"></video>
       <figcaption class="lightbox__caption" id="lightboxCaption"></figcaption>
     </figure>
   </div>
 
+  <script src="js/translations.js"></script>
   <script src="js/vendor/gsap.min.js"></script>
   <script src="js/vendor/ScrollTrigger.min.js"></script>
   <script src="js/vendor/lenis.min.js"></script>

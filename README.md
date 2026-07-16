@@ -1,6 +1,10 @@
-# Ads by Dian — Cinematic AI Ads Director
+# Ads by Dian — Cinematic AI Ads
 
-Website portfolio animasi 3D dengan gaya sinematik, terinspirasi dari noth.in namun dengan angle *cinematic AI ads director*.
+Website portfolio animasi 3D dengan gaya sinematik, terinspirasi dari noth.in namun dengan angle *cinematic AI ads*.
+
+## Bahasa (i18n)
+
+Website mendukung dua bahasa: **Indonesia (default)** dan **English**, dengan toggle ID/EN di navbar. Pilihan tersimpan di `localStorage`. Semua teks ada di `js/translations.js` dengan struktur `{ id: {...}, en: {...} }` — edit di satu file itu saja.
 
 ## Fitur
 

@@ -1,5 +1,5 @@
 /* ============================================================
-   DIAN — Cinematic AI Ads Director
+   Ads by Dian — Cinematic AI Ads
    Dark, filmic, big type. Orange & teal like a movie grade.
    ============================================================ */
 
@@ -224,6 +224,29 @@ a { color: inherit; text-decoration: none; }
   transition: transform 0.35s ease;
 }
 .header__nav a:hover::after { transform: scaleX(1); transform-origin: left; }
+
+.lang-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+}
+.lang-toggle__btn {
+  font: inherit;
+  letter-spacing: inherit;
+  background: none;
+  border: none;
+  padding: 0.25rem 0.1rem;
+  color: var(--muted);
+  cursor: none;
+  transition: color 0.3s ease, transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.lang-toggle__btn:hover { color: var(--ink); transform: scale(1.15); }
+.lang-toggle__btn.is-active { color: var(--accent); }
+.lang-toggle__sep { color: var(--muted); opacity: 0.5; }
+@media (hover: none), (pointer: coarse) { .lang-toggle__btn { cursor: pointer; } }
 
 .header__cta {
   font-family: var(--font-display);
