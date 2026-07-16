@@ -443,6 +443,28 @@ if (reel) {
     video.play().catch(() => {});
   });
 
+  // lazy-load the reel after the page is done with critical work
+  const loadReel = () => {
+    if (source.src) return;
+    source.src = source.dataset.src;
+    video.load();
+  };
+  if (document.readyState === "complete") loadReel();
+  else window.addEventListener("load", loadReel);
+
+  // pause the loop while offscreen to save battery/bandwidth
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(
+      (entries) =>
+        entries.forEach((entry) => {
+          if (!source.src) return;
+          if (entry.isIntersecting) video.play().catch(() => {});
+          else video.pause();
+        }),
+      { threshold: 0.1 }
+    ).observe(video);
+  }
+
   soundBtn.addEventListener("click", () => {
     video.muted = !video.muted;
     if (!video.muted) video.play().catch(() => {});
